@@ -1,84 +1,59 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<script type="module">
-  import { ethers } from "./ethers.min.js"
+    <meta charset="UTF-8">
+    <script type="text/javascript" >
 
 window.addEventListener('load', function()  {
-if (window.ethereum==undefined)
+    if (window.ethereum==undefined)
 	{
 		console.log('Please install MetaMask!');
 		alert('Please install MetaMask!');
-		}
-});
-
-// BrowserProvider - это обертка стандартного провайдера Web3, который MetaMask вставляет в каждую страницу как window.ethereum.
-
-const provider = new ethers.BrowserProvider(window.ethereum)
-
-// Плагин MetaMask также позволяет подписывать транзакции для отправки эфира и оплаты изменения состояния в блокчейне. Для этого вам понадобится подписывающее лицо (счет).
-const signer = await provider.getSigner()
-const signerAddress = await signer.getAddress()
-console.log("Текущий счет:", signerAddress)
-const signerBalance = await 
-       provider.getBalance(signerAddress)
-console.log("Баланс текущего счета:", signerBalance, " wei")
-
-var abi =	[
-{
-		"constant": false,
-		"inputs": [],
-		"name": "doPayment",
-		"outputs": [],
-		"payable": true,
-		"stateMutability": "payable",
-		"type": "function"
-	},
-. . .
-];
-// Адрес контракта!!!
-var address = "0xf9b3Ef213F8628592584431aEF690D14e17C85E0";
-
-var contract = new ethers.Contract(address, abi, signer)
-
-// Вызовем бесплатную функцию контракта
-var getNumberPromise = contract.getNumber();
-
-getNumberPromise.then(function(num) {
-    console.log("Вызов бесплатной функции контракта getNumber(): "+num);
-});
-// Если нужно, вызовем платную функцию контракта.
-// Она ничего не возвращает.
-//var setMyNumberPromise = contract.setMyNumber(555);
-
-// Оформление платежа
-window.paymentExample=()=>{
-
-	var sum = document.getElementById("sum").value*1e18;
-	console.log("Сумма в wei: "+sum);
-	sum = "0x"+sum.toString(16);
-	console.log("Сумма в шестнадцатиричном виде: "+sum);
-	
-	// Вызовем платежную функцию контракта
-	var getDoPaymentPromise = contract.doPayment(
-                          { value: sum });
-
-	getDoPaymentPromise
-	.then(function(n) {
-          console.log(n);
-    })
-	.catch((error) => {
+	}
+		
+	else
+	{
+		ethereum
+          .request({
+		  method: 'net_version'  
+		})
+        .then((result) => {
+		 console.log("Сеть: " + result);
+        })
+        .catch((error) => {
             console.log(error);
-    });
-}
+       });	
+	 }
+});
 
+function getBalance() {
+
+	let address =[];
+      address[0] = document.getElementById("address").value;
+	 ethereum
+        .request({
+		  method: 'eth_getBalance',
+		  params: address	
+		})
+        .then((result) => {
+		console.log("Баланс: " + parseInt(result, 16)/1e18);
+		document.getElementById("output").innerHTML = 
+				"Баланс: " + parseInt(result, 16)/1e18;
+        })
+        .catch((error) => {
+           console.log(error);
+		document.getElementById("output").innerHTML =   error.message;
+       });
+ }
 </script>
 </head>
 <body>
-    <h1>Провести платеж в ETH</h1>
-    <p>Сумма платежа (ETH):</p>
-    <input type="text" size="50" id="sum" />
-    <button type="button" onClick=" paymentExample();"> оплатить</button>
+    <h1>Получение баланса ETH </h1>
+    <p>Введите адрес Ethereum:</p>
+    <input type="text" size="50" id="address" />
+    <button type="button" onClick="getBalance();">Получить баланс</button>
+    <br />
+    <br />
+    <div id="output"></div>
 </body>
 </html>
