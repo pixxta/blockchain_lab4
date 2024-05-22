@@ -3,11 +3,13 @@ document.getElementById('rollDiceButton').addEventListener('click', function() {
     const faces = 6;
     const roll = Math.floor(Math.random() * faces) + 1;
 
-    let xRotation = Math.floor(Math.random() * 4) * 90;
-    let yRotation = Math.floor(Math.random() * 4) * 90;
+    // Удаляем все классы граней
+    dice.className = 'dice';
 
-    dice.style.transform = `rotateX(${xRotation}deg) rotateY(${yRotation}deg)`;
+    // Добавляем соответствующий класс для выпавшего числа
+    dice.classList.add(`show-${roll}`);
 
+    // Показываем выпавшее число
     setTimeout(() => {
         alert(`Выпало число: ${roll}`);
     }, 1000);
