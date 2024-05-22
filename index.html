@@ -1,59 +1,67 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <script type="text/javascript" >
-
-window.addEventListener('load', function()  {
-    if (window.ethereum==undefined)
-	{
-		console.log('Please install MetaMask!');
-		alert('Please install MetaMask!');
-	}
-		
-	else
-	{
-		ethereum
-          .request({
-		  method: 'net_version'  
-		})
-        .then((result) => {
-		 console.log("Сеть: " + result);
-        })
-        .catch((error) => {
-            console.log(error);
-       });	
-	 }
-});
-
-function getBalance() {
-
-	let address =[];
-      address[0] = document.getElementById("address").value;
-	 ethereum
-        .request({
-		  method: 'eth_getBalance',
-		  params: address	
-		})
-        .then((result) => {
-		console.log("Баланс: " + parseInt(result, 16)/1e18);
-		document.getElementById("output").innerHTML = 
-				"Баланс: " + parseInt(result, 16)/1e18;
-        })
-        .catch((error) => {
-           console.log(error);
-		document.getElementById("output").innerHTML =   error.message;
-       });
- }
-</script>
-</head>
-<body>
-    <h1>Получение баланса ETH </h1>
-    <p>Введите адрес Ethereum:</p>
-    <input type="text" size="50" id="address" />
-    <button type="button" onClick="getBalance();">Получить баланс</button>
-    <br />
-    <br />
-    <div id="output"></div>
-</body>
-</html>
+<HTML>
+    <HEAD>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+    <TITLE>Тест консоли</TITLE>
+    <script language="JavaScript">
+    window.addEventListener('load', function()  {
+        if (window.ethereum==undefined)
+        {
+            console.log('Please install MetaMask!');
+            alert('Please install MetaMask!');
+            }
+            
+        else
+            {
+            //--Получаем информацию о сети 
+            ethereum
+              .request({
+              method: 'net_version'  
+            })
+            .then((result) => {
+                console.log("Сеть: " + result);
+            })
+            .catch((error) => {
+                console.log(error);
+           });
+      }
+      
+      //-- Получаем информацию о номере текущего счета  
+                                   пользователя 
+      ethereum
+           .request({
+              method: 'eth_accounts',          
+            })
+            .then((address) => {
+             console.log("Мой счет: "+ address[0]);		    
+             let myaddress =[];
+                myaddress[0] = address[0];
+              //-- Получаем информацию о балансе текущего счета 
+                    пользователя 
+             ethereum
+                .request({
+                    method: 'eth_getBalance',
+                    params: myaddress	
+                    })
+                    .then((result) => {
+                        console.log("Баланс: " +   
+                                   parseInt(result, 16)/1e18);			
+                    })
+                    .catch((error) => {
+                        console.log(error);					
+                    });			
+            })
+            .catch((error) => {
+                console.log(error);
+           });
+    });
+        
+    </script>
+    
+    </HEAD>
+    <BODY>
+    Тест веб-консоли
+    <hr>
+    Удобным средством отладки является консоль браузера (в Firefox это меню «Инструменты – Веб-разработка – Веб-консоль», в Google Chrome – «Дополнительные инструменты – Инструменты разработчика»). 
+    </BODY>
+    </HTML>
+    
