@@ -150,6 +150,9 @@ function placeBet(win, roll) {
                 dice.className = 'dice';
                 dice.classList.add(`show-${roll}`);
                 setTimeout(() => {
+                    const dice = document.getElementById('dice');
+                    dice.className = 'dice';
+                    dice.classList.add(`show-${roll}`);
                     document.getElementById('resultText').textContent = `У вас выпало: ${roll}, вы выиграли!`;
                 }, 1000);
             } else {
@@ -161,6 +164,20 @@ function placeBet(win, roll) {
                     document.getElementById('resultText').textContent = `У вас выпало: ${roll}, вы проиграли!`;
                 }, 1000);
             }
+
+            // Обновляем баланс после выполнения ставки
+            ethereum.request({ method: 'eth_accounts' })
+                .then((accounts) => {
+                    if (accounts.length > 0) {
+                        getBalance(accounts[0]);
+                    } else {
+                        document.getElementById('balanceText').textContent = 'Не удалось получить баланс. Пожалуйста, разрешите доступ к вашему кошельку MetaMask.';
+                    }
+                })
+                .catch((error) => {
+                    console.log(error);
+                    document.getElementById('balanceText').textContent = 'Не удалось получить баланс. Пожалуйста, разрешите доступ к вашему кошельку MetaMask.';
+                });
         })
         .on('confirmation', function(confirmationNumber, receipt){
             // Ваш код для обработки подтверждения транзакции
@@ -184,19 +201,13 @@ document.getElementById('betOverThreeButton').addEventListener('click', function
     setTimeout(() => {
         document.getElementById('resultText').textContent = `Подтвердите операцию в MetaMask`;
     }, 1000);
+    
 });
 
 // Обработчик события клика по кнопке "Меньше трех"
 document.getElementById('betUnderThreeButton').addEventListener('click', function() {
-    const dice = document.getElementById('dice');
     const faces = 6;
     const roll = Math.floor(Math.random() * faces) + 1;
-
-    // Удаляем все классы граней
-    dice.className = 'dice';
-
-    // Добавляем соответствующий класс для выпавшего числа
-    dice.classList.add(`show-${roll}`);
 
     // Отправляем ставку на контракт в зависимости от выпавшего числа
     if (roll < 3) {
