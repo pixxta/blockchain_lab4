@@ -144,7 +144,6 @@ function placeBet(win, roll) {
         })
         .on('receipt', function(receipt){
             // Ваш код для обработки чека (подтверждение транзакции)
-            resetDiceAnimation();
             if (receipt.events.BetPlaced.returnValues.win) {
                 // Если выигрыш, обновляем текст результата
                 const dice = document.getElementById('dice');
