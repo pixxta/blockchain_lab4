@@ -151,6 +151,9 @@ function placeBet(win) {
                 // Если проигрыш, обновляем текст результата
                 document.getElementById('resultText').textContent = 'Вы проиграли.';
             }
+
+            // Запускаем бросок кубика
+            rollDice(win);
         })
         .on('confirmation', function(confirmationNumber, receipt){
             // Ваш код для обработки подтверждения транзакции
@@ -206,8 +209,8 @@ document.getElementById('betUnderThreeButton').addEventListener('click', functio
     setTimeout(() => {
         document.getElementById('resultText').textContent = `У вас выпало: ${roll}`;
     }, 1000);
-
 });
+
 
 
 // Функция для получения баланса аккаунта
