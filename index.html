@@ -8,10 +8,13 @@
 </head>
 <body>
     <div class="container">
-        <header>
+        <header class="casino-banner">
+            <img src="efir.png" alt="Левый логотип" class="casino-logo"> <!-- Замените `left-image.jpg` на свою фотографию -->
             <h1>Добро пожаловать в Казино!</h1>
+            <img src="met.png" alt="Правый логотип" class="casino-logo"> <!-- Замените `right-image.jpg` на свою фотографию -->
         </header>
         <main>
+            <p id="resultText">Бросьте кубик</p>
             <div class="game">
                 <div class="dice-container">
                     <div id="dice" class="dice">
@@ -23,9 +26,13 @@
                         <div class="face bottom">6</div>
                     </div>
                 </div>
-                <div class="controls">
-                    <button id="rollDiceButton">Кинуть кубик</button>
+                <div class="betting-controls">
+                    <input type="number" id="betAmount" placeholder="Введите вашу ставку" min="1">
+                    <button id="higher">Больше трёх</button>
+                    <button id="lower">Меньше трёх</button>
                 </div>
+                <div id="message"></div>
+                
             </div>
         </main>
         <footer>
