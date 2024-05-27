@@ -28,12 +28,14 @@
                 </div>
             </div>
             <div class="balance">
-                <h2>Проверка баланса ETH</h2>
-                <p>Введите адрес Ethereum кошелька MetaMask:</p>
+                <p>Введите адрес Ethereum кошелька MetaMask для проверки баланса:</p>
                 <input type="text" size="50" id="address" />
                 <button type="button" onclick="getBalance();">Проверить баланс для игры</button>
                 <br /><br />
                 <div id="output"></div>
+            </div>
+            <div class="result">
+                <p id="resultText"></p>
             </div>
         </main>
         <footer>
@@ -78,6 +80,23 @@
                     document.getElementById("output").innerHTML = error.message;
                 });
         }
+
+        document.getElementById('rollDiceButton').addEventListener('click', function() {
+            const dice = document.getElementById('dice');
+            const faces = 6;
+            const roll = Math.floor(Math.random() * faces) + 1;
+
+            // Удаляем все классы граней
+            dice.className = 'dice';
+
+            // Добавляем соответствующий класс для выпавшего числа
+            dice.classList.add(`show-${roll}`);
+
+            // Показываем выпавшее число
+            setTimeout(() => {
+                document.getElementById('resultText').textContent = `У вас выпало: ${roll}`;
+            }, 1000);
+        });
     </script>
 </body>
 </html>
