@@ -10,6 +10,10 @@
     <div class="container">
         <header>
             <h1>Добро пожаловать в Казино!</h1>
+            <div class="balance-info">
+                <button id="checkBalanceButton">Показать баланс</button>
+                <div id="balanceOutput"></div>
+            </div>
         </header>
         <main>
             <div class="game">
@@ -26,14 +30,6 @@
                 <div class="controls">
                     <button id="rollDiceButton">Кинуть кубик</button>
                 </div>
-            </div>
-            <div class="balance">
-                <h2>Получение баланса ETH</h2>
-                <p>Введите адрес Ethereum:</p>
-                <input type="text" size="50" id="address" />
-                <button type="button" onclick="getBalance();">Проверить баланс</button>
-                <br /><br />
-                <div id="output"></div>
             </div>
         </main>
         <footer>
@@ -62,22 +58,28 @@
         });
 
         function getBalance() {
-            let address = document.getElementById("address").value;
+            let address = ethereum.selectedAddress;
+            if (!address) {
+                alert('Please connect to MetaMask!');
+                return;
+            }
             ethereum
                 .request({
                     method: 'eth_getBalance',
-                    params: [address]
+                    params: [address, 'latest']
                 })
                 .then((result) => {
                     console.log("Баланс: " + parseInt(result, 16) / 1e18);
-                    document.getElementById("output").innerHTML =
+                    document.getElementById("balanceOutput").innerText =
                         "Баланс: " + parseInt(result, 16) / 1e18 + " ETH";
                 })
                 .catch((error) => {
                     console.log(error);
-                    document.getElementById("output").innerHTML = error.message;
+                    document.getElementById("balanceOutput").innerText = error.message;
                 });
         }
+
+        document.getElementById('checkBalanceButton').addEventListener('click', getBalance);
     </script>
 </body>
 </html>
