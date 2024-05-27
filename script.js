@@ -146,12 +146,18 @@ function placeBet(win, roll) {
             // Ваш код для обработки чека (подтверждение транзакции)
             if (receipt.events.BetPlaced.returnValues.win) {
                 // Если выигрыш, обновляем текст результата
+                const dice = document.getElementById('dice');
+                dice.className = 'dice';
+                dice.classList.add(`show-${roll}`);
                 setTimeout(() => {
                     document.getElementById('resultText').textContent = `У вас выпало: ${roll}, вы выиграли!`;
                 }, 1000);
             } else {
                 // Если проигрыш, обновляем текст результата
                 setTimeout(() => {
+                    const dice = document.getElementById('dice');
+                    dice.className = 'dice';
+                    dice.classList.add(`show-${roll}`);
                     document.getElementById('resultText').textContent = `У вас выпало: ${roll}, вы проиграли!`;
                 }, 1000);
             }
@@ -164,15 +170,8 @@ function placeBet(win, roll) {
 
 // Обработчик события клика по кнопке "Больше трех"
 document.getElementById('betOverThreeButton').addEventListener('click', function() {
-    const dice = document.getElementById('dice');
     const faces = 6;
     const roll = Math.floor(Math.random() * faces) + 1;
-
-    // Удаляем все классы граней
-    dice.className = 'dice';
-
-    // Добавляем соответствующий класс для выпавшего числа
-    dice.classList.add(`show-${roll}`);
 
     // Отправляем ставку на контракт в зависимости от выпавшего числа
     if (roll > 3) {
@@ -183,7 +182,7 @@ document.getElementById('betOverThreeButton').addEventListener('click', function
 
     // Показываем выпавшее число
     setTimeout(() => {
-        document.getElementById('resultText').textContent = `У вас выпало: ?, подтвердите операцию`;
+        document.getElementById('resultText').textContent = `Подтвердите операцию в MetaMask`;
     }, 1000);
 });
 
