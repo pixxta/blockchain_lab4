@@ -158,9 +158,8 @@ function placeBet(win) {
         .on('error', console.error); // Ваш код для обработки ошибок
 }
 
-
-// Обработчик события клика по кнопке "Бросить кубик"
-document.getElementById('rollDiceButton').addEventListener('click', function() {
+// Обработчик события клика по кнопке "Больше трех"
+document.getElementById('betOverThreeButton').addEventListener('click', function() {
     const dice = document.getElementById('dice');
     const faces = 6;
     const roll = Math.floor(Math.random() * faces) + 1;
@@ -183,6 +182,33 @@ document.getElementById('rollDiceButton').addEventListener('click', function() {
         document.getElementById('resultText').textContent = `У вас выпало: ${roll}`;
     }, 1000);
 });
+
+// Обработчик события клика по кнопке "Меньше трех"
+document.getElementById('betUnderThreeButton').addEventListener('click', function() {
+    const dice = document.getElementById('dice');
+    const faces = 6;
+    const roll = Math.floor(Math.random() * faces) + 1;
+
+    // Удаляем все классы граней
+    dice.className = 'dice';
+
+    // Добавляем соответствующий класс для выпавшего числа
+    dice.classList.add(`show-${roll}`);
+
+    // Отправляем ставку на контракт в зависимости от выпавшего числа
+    if (roll < 3) {
+        placeBet(true); // Вызываем функцию placeBet с аргументом true (выигрыш)
+    } else {
+        placeBet(false); // Вызываем функцию placeBet с аргументом false (проигрыш)
+    }
+
+    // Показываем выпавшее число
+    setTimeout(() => {
+        document.getElementById('resultText').textContent = `У вас выпало: ${roll}`;
+    }, 1000);
+
+});
+
 
 // Функция для получения баланса аккаунта
 function getBalance(address) {
