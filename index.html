@@ -10,6 +10,9 @@
     <div class="container">
         <header>
             <h1>Добро пожаловать в Казино!</h1>
+            <div class="balance-info">
+                <p id="balanceText">Проверка баланса...</p>
+            </div>
         </header>
         <main>
             <div class="game">
@@ -24,21 +27,19 @@
                     </div>
                 </div>
                 <div class="controls">
-                    <button id="rollDiceButton">Кинуть кубик</button>
+                    <input type="number" id="betInput" step="0.001" min="0.001" max="0.01" placeholder="Введите ставку (ETH)">
+                    <button id="rollDiceButton">Бросить кубик</button>
                 </div>
-            </div>
-            <div class="balance">
-                <p id="balanceText">Проверка баланса...</p>
-            </div>
-            <div class="result">
-                <p id="resultText"></p>
+                <div class="result">
+                    <p id="resultText"></p>
+                </div>
             </div>
         </main>
         <footer>
             <p>© 2024 Казино Онлайн</p>
         </footer>
     </div>
-
+    
     <script src="script.js"></script>
     <script>
         window.addEventListener('load', function() {

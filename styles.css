@@ -110,5 +110,34 @@ footer {
 
 #resultText {
     margin: 20px;
-    font-size: 1.5em;
+    font-size: 1.5em;   
+}
+
+/* Ваши текущие стили остаются без изменений */
+
+.game {
+    position: relative;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.controls {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+}
+
+input[type="number"] {
+    padding: 10px;
+    font-size: 1em;
+    width: 150px;
+    margin-right: 10px;
+}
+
+/* Добавленные стили для результата */
+.result {
+    margin-top: 20px;
+    text-align: center;
 }
