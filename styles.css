@@ -4,62 +4,30 @@ body {
     background-color: #1b1b1b;
     color: #fff;
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    min-height: 100vh;
-}
-
-.casino-banner {
-    display: flex;
-    align-items: center;
     justify-content: center;
-    width: 100%;
-    background-color: #000;
-    padding: 10px 20px;
-}
-
-.casino-logo {
-    height: 100px; /* Вы можете изменить размеры в соответствии с вашими изображениями */
+    align-items: center;
+    height: 100vh;
 }
 
 .container {
-    display: flex; /* Добавляем flexbox */
-    flex-direction: column; /* Элементы идут в столбец */
-    justify-content: center; /* Центрируем содержимое по горизонтали */
-    align-items: center; /* Центрируем содержимое по вертикали */
     text-align: center;
-    width: 100%;
-    height: 100%; /* Даем контейнеру полную высоту */
-    min-height: 100vh; /* Минимальная высота всей видимой части окна браузера */
 }
 
 header h1 {
     font-size: 2.5em;
-    margin: 0 20px;
+    margin-bottom: 20px;
     color: #e4a700;
 }
 
-#resultText {
-    margin: 20px;
-    font-size: 1.5em;
-}
-
 .game {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
     position: relative;
-    width: 100%;
+    margin-bottom: 20px; /* Добавлено для отделения от блока баланса */
 }
-
 
 .dice-container {
     perspective: 1000px;
-    margin: 0 auto; /* Центрируем кубик по горизонтали */
-    width: fit-content; /* Ширина по содержимому */
+    margin-bottom: 20px;
 }
-
 
 .dice {
     width: 100px;
@@ -72,8 +40,8 @@ header h1 {
 
 .dice.show-1 { transform: rotateX(0deg) rotateY(0deg); }
 .dice.show-2 { transform: rotateX(-180deg) rotateY(0deg); }
-.dice.show-3 { transform: rotateX(0deg) rotateY(-90deg); } /* Исправлено */
-.dice.show-4 { transform: rotateX(0deg) rotateY(90deg); } /* Исправлено */
+.dice.show-3 { transform: rotateX(0deg) rotateY(-90deg); }
+.dice.show-4 { transform: rotateX(0deg) rotateY(90deg); }
 .dice.show-5 { transform: rotateX(-90deg) rotateY(0deg); }
 .dice.show-6 { transform: rotateX(90deg) rotateY(0deg); }
 
@@ -90,16 +58,12 @@ header h1 {
     font-weight: bold;
 }
 
-.front  { transform: rotateY(  0deg) translateZ(50px); }
-.back {
-    transform: rotateY(180deg) translateZ(50px) rotate(180deg);
-}
-
-.right  { transform: rotateY( 90deg) translateZ(50px); }
+.front  { transform: rotateY(0deg) translateZ(50px); }
+.back   { transform: rotateY(180deg) translateZ(50px) rotate(180deg); }
+.right  { transform: rotateY(90deg) translateZ(50px); }
 .left   { transform: rotateY(-90deg) translateZ(50px); }
-.top    { transform: rotateX( 90deg) translateZ(50px); }
+.top    { transform: rotateX(90deg) translateZ(50px); }
 .bottom { transform: rotateX(-90deg) translateZ(50px); }
-
 
 .controls {
     margin-top: 20px;
@@ -120,30 +84,14 @@ button:hover {
 }
 
 footer {
-    margin-top: auto;
-    width: 100%;
-    text-align: center;
-    padding: 20px 0;
-    background-color: #000;
-    color: #e4a700;
+    margin-top: 40px;
 }
 
-footer p {
-    margin: 0;
-    font-size: 1.2em;
-}
-
-.betting-controls {
+.balance {
     margin-top: 20px;
 }
 
-#betAmount {
-    padding: 10px;
-    margin-right: 10px;
-    width: 200px;
-}
-
-#message {
-    margin-top: 20px;
-    font-size: 1.2em;
+#resultText {
+    margin: 20px;
+    font-size: 1.5em;
 }
