@@ -136,7 +136,7 @@ var contractABI = [
 var contractInstance = new web3.eth.Contract(contractABI, contractAddress);
 
 // Функция для отправки ставки на контракт
-function placeBet(win) {
+function placeBet(win, roll) {
     var betAmount = web3.utils.toWei('0.01', 'ether'); // Ставка в wei (в данном случае 0.01 ETH)
     contractInstance.methods.placeBet(win).send({from: ethereum.selectedAddress, value: betAmount})
         .on('transactionHash', function(hash){
@@ -146,14 +146,15 @@ function placeBet(win) {
             // Ваш код для обработки чека (подтверждение транзакции)
             if (receipt.events.BetPlaced.returnValues.win) {
                 // Если выигрыш, обновляем текст результата
-                document.getElementById('resultText').textContent = 'Вы выиграли!';
+                setTimeout(() => {
+                    document.getElementById('resultText').textContent = `У вас выпало: ${roll}, вы выиграли!`;
+                }, 1000);
             } else {
                 // Если проигрыш, обновляем текст результата
-                document.getElementById('resultText').textContent = 'Вы проиграли.';
+                setTimeout(() => {
+                    document.getElementById('resultText').textContent = `У вас выпало: ${roll}, вы проиграли!`;
+                }, 1000);
             }
-
-            // Запускаем бросок кубика
-            rollDice(win);
         })
         .on('confirmation', function(confirmationNumber, receipt){
             // Ваш код для обработки подтверждения транзакции
@@ -175,14 +176,14 @@ document.getElementById('betOverThreeButton').addEventListener('click', function
 
     // Отправляем ставку на контракт в зависимости от выпавшего числа
     if (roll > 3) {
-        placeBet(true); // Вызываем функцию placeBet с аргументом true (выигрыш)
+        placeBet(true, roll); // Вызываем функцию placeBet с аргументом true (выигрыш)
     } else {
-        placeBet(false); // Вызываем функцию placeBet с аргументом false (проигрыш)
+        placeBet(false, roll); // Вызываем функцию placeBet с аргументом false (проигрыш)
     }
 
     // Показываем выпавшее число
     setTimeout(() => {
-        document.getElementById('resultText').textContent = `У вас выпало: ${roll}`;
+        document.getElementById('resultText').textContent = `У вас выпало: ?, подтвердите операцию`;
     }, 1000);
 });
 
@@ -200,18 +201,17 @@ document.getElementById('betUnderThreeButton').addEventListener('click', functio
 
     // Отправляем ставку на контракт в зависимости от выпавшего числа
     if (roll < 3) {
-        placeBet(true); // Вызываем функцию placeBet с аргументом true (выигрыш)
+        placeBet(true, roll); // Вызываем функцию placeBet с аргументом true (выигрыш)
     } else {
-        placeBet(false); // Вызываем функцию placeBet с аргументом false (проигрыш)
+        placeBet(false, roll); // Вызываем функцию placeBet с аргументом false (проигрыш)
     }
 
     // Показываем выпавшее число
     setTimeout(() => {
-        document.getElementById('resultText').textContent = `У вас выпало: ${roll}`;
+        document.getElementById('resultText').textContent = `У вас выпало: ?, подтвердите операцию`;
     }, 1000);
+
 });
-
-
 
 // Функция для получения баланса аккаунта
 function getBalance(address) {
