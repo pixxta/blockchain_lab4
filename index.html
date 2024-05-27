@@ -28,10 +28,7 @@
                 </div>
             </div>
             <div class="balance">
-                <p>Введите адрес Ethereum кошелька MetaMask для проверки баланса:</p>
-                <input type="text" size="50" id="address" />
-                <button type="button" onclick="getBalance();">Проверить баланс для игры</button>
-                <br /><br />
+                <p id="balanceText">Проверка баланса...</p>
                 <div id="output"></div>
             </div>
             <div class="result">
@@ -60,11 +57,26 @@
                     .catch((error) => {
                         console.log(error);
                     });
+
+                ethereum
+                    .request({
+                        method: 'eth_accounts'
+                    })
+                    .then((accounts) => {
+                        if (accounts.length > 0) {
+                            getBalance(accounts[0]);
+                        } else {
+                            document.getElementById('balanceText').textContent = 'Не удалось получить баланс. Пожалуйста, разрешите доступ к вашему кошельку MetaMask.';
+                        }
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                        document.getElementById('balanceText').textContent = 'Не удалось получить баланс. Пожалуйста, разрешите доступ к вашему кошельку MetaMask.';
+                    });
             }
         });
 
-        function getBalance() {
-            let address = document.getElementById("address").value;
+        function getBalance(address) {
             ethereum
                 .request({
                     method: 'eth_getBalance',
@@ -74,10 +86,12 @@
                     console.log("Баланс: " + parseInt(result, 16) / 1e18);
                     document.getElementById("output").innerHTML =
                         "Баланс: " + parseInt(result, 16) / 1e18 + " ETH";
+                    document.getElementById('balanceText').textContent = "Ваш баланс: " + parseInt(result, 16) / 1e18 + " ETH";
                 })
                 .catch((error) => {
                     console.log(error);
                     document.getElementById("output").innerHTML = error.message;
+                    document.getElementById('balanceText').textContent = 'Не удалось получить баланс. Пожалуйста, разрешите доступ к вашему кошельку MetaMask.';
                 });
         }
 
