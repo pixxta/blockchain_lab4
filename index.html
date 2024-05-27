@@ -8,13 +8,10 @@
 </head>
 <body>
     <div class="container">
-        <header class="casino-banner">
-            <img src="efir.png" alt="Левый логотип" class="casino-logo"> <!-- Замените `left-image.jpg` на свою фотографию -->
+        <header>
             <h1>Добро пожаловать в Казино!</h1>
-            <img src="met.png" alt="Правый логотип" class="casino-logo"> <!-- Замените `right-image.jpg` на свою фотографию -->
         </header>
         <main>
-            <p id="resultText">Бросьте кубик</p>
             <div class="game">
                 <div class="dice-container">
                     <div id="dice" class="dice">
@@ -26,13 +23,17 @@
                         <div class="face bottom">6</div>
                     </div>
                 </div>
-                <div class="betting-controls">
-                    <input type="number" id="betAmount" placeholder="Введите вашу ставку" min="1">
-                    <button id="higher">Больше трёх</button>
-                    <button id="lower">Меньше трёх</button>
+                <div class="controls">
+                    <button id="rollDiceButton">Кинуть кубик</button>
                 </div>
-                <div id="message"></div>
-                
+            </div>
+            <div class="balance">
+                <h2>Получение баланса ETH</h2>
+                <p>Введите адрес Ethereum:</p>
+                <input type="text" size="50" id="address" />
+                <button type="button" onclick="getBalance();">Проверить баланс</button>
+                <br /><br />
+                <div id="output"></div>
             </div>
         </main>
         <footer>
@@ -41,5 +42,42 @@
     </div>
 
     <script src="script.js"></script>
+    <script>
+        window.addEventListener('load', function() {
+            if (window.ethereum == undefined) {
+                console.log('Please install MetaMask!');
+                alert('Please install MetaMask!');
+            } else {
+                ethereum
+                    .request({
+                        method: 'net_version'
+                    })
+                    .then((result) => {
+                        console.log("Сеть: " + result);
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    });
+            }
+        });
+
+        function getBalance() {
+            let address = document.getElementById("address").value;
+            ethereum
+                .request({
+                    method: 'eth_getBalance',
+                    params: [address]
+                })
+                .then((result) => {
+                    console.log("Баланс: " + parseInt(result, 16) / 1e18);
+                    document.getElementById("output").innerHTML =
+                        "Баланс: " + parseInt(result, 16) / 1e18 + " ETH";
+                })
+                .catch((error) => {
+                    console.log(error);
+                    document.getElementById("output").innerHTML = error.message;
+                });
+        }
+    </script>
 </body>
 </html>
