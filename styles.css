@@ -36,19 +36,6 @@ header h1 {
     color: #e4a700;
 }
 
-#checkBalanceButton {
-    background-color: #e4a700;
-    color: #1b1b1b;
-    border: none;
-    padding: 10px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-#checkBalanceButton:hover {
-    background-color: #cf9500;
-}
-
 #balanceOutput {
     margin-top: 10px;
 }
