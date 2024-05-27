@@ -29,7 +29,6 @@
             </div>
             <div class="balance">
                 <p id="balanceText">Проверка баланса...</p>
-                <div id="output"></div>
             </div>
             <div class="result">
                 <p id="resultText"></p>
@@ -84,8 +83,6 @@
                 })
                 .then((result) => {
                     console.log("Баланс: " + parseInt(result, 16) / 1e18);
-                    document.getElementById("output").innerHTML =
-                        "Баланс: " + parseInt(result, 16) / 1e18 + " ETH";
                     document.getElementById('balanceText').textContent = "Ваш баланс: " + parseInt(result, 16) / 1e18 + " ETH";
                 })
                 .catch((error) => {
