@@ -137,7 +137,7 @@ var contractInstance = new web3.eth.Contract(contractABI, contractAddress);
 
 // Функция для отправки ставки на контракт
 function placeBet(win, roll) {
-    var betAmount = web3.utils.toWei('0.01', 'ether'); // Ставка в wei (в данном случае 0.01 ETH)
+    var betAmount = web3.utils.toWei('0.05', 'ether'); // Ставка в wei (в данном случае 0.01 ETH)
     contractInstance.methods.placeBet(win).send({from: ethereum.selectedAddress, value: betAmount})
         .on('transactionHash', function(hash){
             // Ваш код для обработки хэша транзакции
@@ -152,7 +152,6 @@ function placeBet(win, roll) {
                 setTimeout(() => {
                     const dice = document.getElementById('dice');
                     dice.className = 'dice';
-                    resetDiceAnimation();
                     dice.classList.add(`show-${roll}`);
                     document.getElementById('resultText').textContent = `У вас выпало: ${roll}, вы выиграли!`;
                 }, 1000);
@@ -161,7 +160,6 @@ function placeBet(win, roll) {
                 setTimeout(() => {
                     const dice = document.getElementById('dice');
                     dice.className = 'dice';
-                    resetDiceAnimation();
                     dice.classList.add(`show-${roll}`);
                     document.getElementById('resultText').textContent = `У вас выпало: ${roll}, вы проиграли!`;
                 }, 1000);
