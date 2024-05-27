@@ -144,6 +144,7 @@ function placeBet(win, roll) {
         })
         .on('receipt', function(receipt){
             // Ваш код для обработки чека (подтверждение транзакции)
+            resetDiceAnimation();
             if (receipt.events.BetPlaced.returnValues.win) {
                 // Если выигрыш, обновляем текст результата
                 const dice = document.getElementById('dice');
@@ -152,6 +153,7 @@ function placeBet(win, roll) {
                 setTimeout(() => {
                     const dice = document.getElementById('dice');
                     dice.className = 'dice';
+                    resetDiceAnimation();
                     dice.classList.add(`show-${roll}`);
                     document.getElementById('resultText').textContent = `У вас выпало: ${roll}, вы выиграли!`;
                 }, 1000);
@@ -160,6 +162,7 @@ function placeBet(win, roll) {
                 setTimeout(() => {
                     const dice = document.getElementById('dice');
                     dice.className = 'dice';
+                    resetDiceAnimation();
                     dice.classList.add(`show-${roll}`);
                     document.getElementById('resultText').textContent = `У вас выпало: ${roll}, вы проиграли!`;
                 }, 1000);
@@ -238,6 +241,16 @@ function getBalance(address) {
             console.log(error);
             document.getElementById('balanceText').textContent = 'Не удалось получить баланс. Пожалуйста, разрешите доступ к вашему кошельку MetaMask.';
         });
+}
+
+// Функция для сброса анимации кубика
+function resetDiceAnimation() {
+    const dice = document.getElementById('dice');
+    dice.classList.remove('show-1', 'show-2', 'show-3', 'show-4', 'show-5', 'show-6');
+    dice.classList.add('animate-roll');
+    setTimeout(() => {
+        dice.classList.remove('animate-roll');
+    }, 500);
 }
 
 // Запрос баланса текущего аккаунта

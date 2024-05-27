@@ -43,6 +43,9 @@ header h1 {
 .game {
     position: relative;
     margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .dice-container {
@@ -88,6 +91,15 @@ header h1 {
 
 .controls {
     margin-top: 20px;
+    display: flex;
+    align-items: center;
+}
+
+input[type="number"] {
+    padding: 10px;
+    font-size: 1em;
+    width: 150px;
+    margin-right: 10px;
 }
 
 button {
@@ -113,39 +125,20 @@ footer {
     font-size: 1.5em;   
 }
 
-/* Ваши текущие стили остаются без изменений */
-
-.game {
-    position: relative;
-    margin-top: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.controls {
-    margin-top: 20px;
-    display: flex;
-    align-items: center;
-}
-
-input[type="number"] {
-    padding: 10px;
-    font-size: 1em;
-    width: 150px;
-    margin-right: 10px;
-}
-
-/* Добавленные стили для результата */
-.result {
-    margin-top: 20px;
-    text-align: center;
-}
-
 .hidden-balance {
     filter: blur(5px);
     cursor: pointer;
 }
+
 .visible-balance {
     filter: none;
+}
+
+.animate-roll {
+    animation: roll 0.5s;
+}
+
+@keyframes roll {
+    0% { transform: rotateX(0) rotateY(0); }
+    100% { transform: rotateX(360deg) rotateY(360deg); }
 }
