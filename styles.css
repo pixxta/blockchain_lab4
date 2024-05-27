@@ -56,7 +56,7 @@ header h1 {
     position: relative;
     transform-style: preserve-3d;
     transform: rotateX(0deg) rotateY(0deg);
-    transition: transform 3s;
+    transition: transform 1s;
 }
 
 .dice.show-1 { transform: rotateX(0deg) rotateY(0deg); }
@@ -140,4 +140,12 @@ input[type="number"] {
 .result {
     margin-top: 20px;
     text-align: center;
+}
+
+.hidden-balance {
+    filter: blur(5px);
+    cursor: pointer;
+}
+.visible-balance {
+    filter: none;
 }

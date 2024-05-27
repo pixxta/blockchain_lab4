@@ -256,3 +256,9 @@ ethereum
         console.log(error);
         document.getElementById('balanceText').textContent = 'Не удалось получить баланс. Пожалуйста, разрешите доступ к вашему кошельку MetaMask.';
     });
+
+    document.getElementById('balanceText').addEventListener('click', function() {
+        const balanceText = document.getElementById('balanceText');
+        balanceText.classList.toggle('hidden-balance');
+        balanceText.classList.toggle('visible-balance');
+    });
