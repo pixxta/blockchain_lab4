@@ -1,6 +1,6 @@
 var web3 = new Web3(Web3.givenProvider);
 
-var contractAddress = '0x2D357F6b53dd2900633548Fb8ADa298626315c52';
+var contractAddress = '0x358AA13c52544ECCEF6B0ADD0f801012ADAD5eE3';
 
 var contractABI = [
 	{
