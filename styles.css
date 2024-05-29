@@ -94,7 +94,7 @@ header h1 {
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-direction: row; /* Располагаем элементы горизонтально */
+    flex-direction: row;
 }
 
 .controls button {
@@ -105,11 +105,11 @@ header h1 {
     color: #1b1b1b;
     cursor: pointer;
     transition: background-color 0.3s;
-    margin-right: 10px; /* Добавляем отступ между кнопками */
+    margin-right: 10px;
 }
 
 .controls button:last-child {
-    margin-right: 0; /* Убираем правый отступ у последней кнопки */
+    margin-right: 0;
 }
 
 
@@ -119,11 +119,11 @@ header h1 {
 
 .footer {
     margin-top: 40px;
-    text-align: center; /* Выравниваем текст по центру */
+    text-align: center;
 }
 
 .stavka input {
-    width: 300px; /* Выберите нужную ширину */
+    width: 300px;
     padding: 10px;
     font-size: 1em;
 }

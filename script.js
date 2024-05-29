@@ -1,10 +1,7 @@
-// Подключаемся к сети Ethereum с использованием Web3.js
 var web3 = new Web3(Web3.givenProvider);
 
-// Адрес вашего контракта
-var contractAddress = '0x2D357F6b53dd2900633548Fb8ADa298626315c52'; // Замените на адрес вашего контракта
+var contractAddress = '0x2D357F6b53dd2900633548Fb8ADa298626315c52';
 
-// ABI вашего контракта
 var contractABI = [
 	{
 		"inputs": [],
@@ -140,10 +137,8 @@ function placeBet(win, roll) {
     var betAmount = web3.utils.toWei('0.05', 'ether'); // Ставка в wei (в данном случае 0.01 ETH)
     contractInstance.methods.placeBet(win).send({from: ethereum.selectedAddress, value: betAmount})
         .on('transactionHash', function(hash){
-            // Ваш код для обработки хэша транзакции
         })
         .on('receipt', function(receipt){
-            // Ваш код для обработки чека (подтверждение транзакции)
             if (receipt.events.BetPlaced.returnValues.win) {
                 // Если выигрыш, обновляем текст результата
                 const dice = document.getElementById('dice');
@@ -156,7 +151,6 @@ function placeBet(win, roll) {
                     document.getElementById('resultText').textContent = `У вас выпало: ${roll}, вы выиграли!`;
                 }, 1000);
             } else {
-                // Если проигрыш, обновляем текст результата
                 setTimeout(() => {
                     const dice = document.getElementById('dice');
                     dice.className = 'dice';
@@ -180,24 +174,23 @@ function placeBet(win, roll) {
                 });
         })
         .on('confirmation', function(confirmationNumber, receipt){
-            // Ваш код для обработки подтверждения транзакции
+
         })
-        .on('error', console.error); // Ваш код для обработки ошибок
+        .on('error', console.error);
 }
 
 // Обработчик события клика по кнопке "Больше трех"
 document.getElementById('betOverThreeButton').addEventListener('click', function() {
     const faces = 6;
     const roll = Math.floor(Math.random() * faces) + 1;
-
     // Отправляем ставку на контракт в зависимости от выпавшего числа
     if (roll > 3) {
-        placeBet(true, roll); // Вызываем функцию placeBet с аргументом true (выигрыш)
+        placeBet(true, roll);
     } else {
-        placeBet(false, roll); // Вызываем функцию placeBet с аргументом false (проигрыш)
+        placeBet(false, roll);
     }
 
-    // Показываем выпавшее число
+    
     setTimeout(() => {
         document.getElementById('resultText').textContent = `Подтвердите операцию в MetaMask`;
     }, 1000);
@@ -208,17 +201,13 @@ document.getElementById('betOverThreeButton').addEventListener('click', function
 document.getElementById('betUnderThreeButton').addEventListener('click', function() {
     const faces = 6;
     const roll = Math.floor(Math.random() * faces) + 1;
-
-    // Отправляем ставку на контракт в зависимости от выпавшего числа
     if (roll < 3) {
-        placeBet(true, roll); // Вызываем функцию placeBet с аргументом true (выигрыш)
+        placeBet(true, roll);
     } else {
-        placeBet(false, roll); // Вызываем функцию placeBet с аргументом false (проигрыш)
+        placeBet(false, roll);
     }
-
-    // Показываем выпавшее число
     setTimeout(() => {
-        document.getElementById('resultText').textContent = `У вас выпало: ?, подтвердите операцию`;
+        document.getElementById('resultText').textContent = `Подтвердите операцию в MetaMask`;
     }, 1000);
 
 });
