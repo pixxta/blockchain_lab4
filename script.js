@@ -133,8 +133,8 @@ var contractABI = [
 var contractInstance = new web3.eth.Contract(contractABI, contractAddress);
 
 // Функция для отправки ставки на контракт
-function placeBet(win, roll) {
-    var betAmount = web3.utils.toWei('0.05', 'ether'); // Ставка в wei (в данном случае 0.01 ETH)
+function placeBet(win, roll, stavka) {
+    var betAmount = web3.utils.toWei(stavka, 'ether');
     contractInstance.methods.placeBet(win).send({from: ethereum.selectedAddress, value: betAmount})
         .on('transactionHash', function(hash){
         })
@@ -183,11 +183,12 @@ function placeBet(win, roll) {
 document.getElementById('betOverThreeButton').addEventListener('click', function() {
     const faces = 6;
     const roll = Math.floor(Math.random() * faces) + 1;
+	var betInput = document.getElementById('betInput');
     // Отправляем ставку на контракт в зависимости от выпавшего числа
     if (roll > 3) {
-        placeBet(true, roll);
+        placeBet(true, roll, betInput.value);
     } else {
-        placeBet(false, roll);
+        placeBet(false, roll, betInput.value);
     }
 
     
@@ -201,10 +202,11 @@ document.getElementById('betOverThreeButton').addEventListener('click', function
 document.getElementById('betUnderThreeButton').addEventListener('click', function() {
     const faces = 6;
     const roll = Math.floor(Math.random() * faces) + 1;
+	var betInput = document.getElementById('betInput');
     if (roll < 3) {
-        placeBet(true, roll);
+        placeBet(true, roll, betInput.value);
     } else {
-        placeBet(false, roll);
+        placeBet(false, roll, betInput.value);
     }
     setTimeout(() => {
         document.getElementById('resultText').textContent = `Подтвердите операцию в MetaMask`;
